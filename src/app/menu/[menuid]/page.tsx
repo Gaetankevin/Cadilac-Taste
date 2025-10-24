@@ -40,7 +40,7 @@ export default function MenuItemPage() {
       <p className="mt-3 text-gray-600 dark:text-gray-300">{menuItem.description}</p>
       <p className="mt-3 font-bold text-amber-600 text-xl">{menuItem.price} FCFA</p>
       <button className="mt-5 bg-amber-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-amber-700 transition">
-        Ajouter au panier
+        Ajouter
       </button>
     </div>
   );
