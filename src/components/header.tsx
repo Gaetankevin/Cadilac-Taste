@@ -4,10 +4,6 @@ import { ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import Cart from "@/components/cart";
 import Link from "next/link";
-
-function showCart() {
-  console.log("showCart");
-}
 export default function Header() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const toggleCart = () => setIsCartOpen(!isCartOpen);

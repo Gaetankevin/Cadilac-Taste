@@ -22,7 +22,7 @@ export default function MenuItemPage() {
   }, [menuid]);
 
   if (!menuItem) {
-    return <div className="p-10 text-center">Menu introuvable...</div>;
+    return <div className="p-10 text-center">patientez...</div>;
   }
 
   return (

@@ -53,31 +53,43 @@ export default function Menu({
       {/* Menu items */}
       <div className="category-menuitem grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-5 px-5 md:px-10">
         {filteredMenuItems.map((menuItem) => (
-          <Link key={menuItem.id} href={`/menu/${menuItem.id}`}>
-            <div
-              
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-xl transition"
-            >
-              <Image
-                src={menuItem.imageUrl || "/images/placeholder.png"}
-                alt={menuItem.name}
-                width={400}
-                height={160}
-                className="w-full h-40 object-cover"
-              />
-              <div className="p-3">
-                <h3 className="font-semibold text-lg text-gray-800 dark:text-gray-100">
-                  {menuItem.name}
-                </h3>
-                <p className="mt-2 font-bold text-amber-600">
-                  {menuItem.price} FCFA
-                </p>
-                <button className="mt-2 bg-amber-600 text-white font-bold py-2 px-4 rounded-lg">
-                  Ajouter
-                </button>
-              </div>
-            </div>
-          </Link>
+         <Link key={menuItem.id} href={`/menu/${menuItem.id}`}>
+  <div className="group bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-2xl transition-shadow duration-300 overflow-hidden cursor-pointer flex flex-col">
+    
+    {/* IMAGE */}
+    <div className="relative w-full h-48 md:h-56 lg:h-60 overflow-hidden">
+      <Image
+        src={menuItem.imageUrl || "/images/placeholder.png"}
+        alt={menuItem.name}
+        fill
+        className="object-cover group-hover:scale-105 transition-transform duration-300"
+      />
+    </div>
+
+    {/* CONTENT */}
+    <div className="p-4 flex flex-col flex-grow justify-between">
+      <div>
+        <h3 className="text-lg md:text-xl font-semibold text-gray-800 dark:text-gray-100 truncate">
+          {menuItem.name}
+        </h3>
+        <p className="mt-1 text-sm text-gray-500 dark:text-gray-300 line-clamp-2">
+          {menuItem.description}
+        </p>
+      </div>
+
+      <div className="mt-3 flex items-center justify-between">
+        <span className="text-amber-600 font-bold text-lg md:text-xl">
+          {menuItem.price} FCFA
+        </span>
+        <button className="bg-amber-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-amber-700 transition-colors">
+          Ajouter
+        </button>
+      </div>
+    </div>
+
+  </div>
+</Link>
+
         ))}
       </div>
     </div>
