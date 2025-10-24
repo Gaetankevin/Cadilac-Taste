@@ -4,7 +4,7 @@ export default async function Home() {
   const { categories } = await getFakeData();
 
   return (
-    <div className="pt-20"> {/* padding top pour ne pas être caché par le header */}
+    <div className=""> {/* padding top pour ne pas être caché par le header */}
       <div className="categoryfilter bg-red-50 h-12 w-full px-5 md:px-10 flex gap-3 items-center overflow-x-auto scrollbar-hide">
         {categories.map((categorie, index) => (
           <div
