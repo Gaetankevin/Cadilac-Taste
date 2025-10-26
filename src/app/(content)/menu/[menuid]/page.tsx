@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { getMenuItemById } from "@/lib/dataProvider";
-import type { MenuItem } from "@/generated/prisma";
+import type { MenuItem } from "../../../../generated/prisma";
 
 export default async function MenuItemPage({ params }: { params: { menuid: string } }) {
   const { menuid } = params;

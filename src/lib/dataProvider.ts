@@ -2,9 +2,9 @@ import { getFakeData } from "@/data/fakedata";
 import type { MenuItem as MenuItemType, Category as CategoryType, RestaurantTable } from "@/types";
 
 // Prisma Client (generated)
-// Import the generated client entry explicitly (include .
+// Import the generated client entry exp  licitly (include .
 // js to help bundlers resolve it)
-import { PrismaClient } from "@/generated/prisma/index.js";
+import { PrismaClient } from "../generated/prisma/index.js";
 
 // create singleton prisma client (avoid multiple instances in dev)
 declare global {
