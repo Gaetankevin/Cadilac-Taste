@@ -4,9 +4,11 @@ import { ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import Cart from "@/components/cart";
 import Link from "next/link";
+import { useCart } from '@/lib/cart'
 export default function Header() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const toggleCart = () => setIsCartOpen(!isCartOpen);
+  const { items } = useCart()
   return (
     <header className="w-full h-15 md:h-20 bg-white dark:bg-black border-b dark:border-gray-500 px-5 md:px-10">
       <div className="grid grid-cols-[0.6fr_5fr_0.5fr] w-full h-full items-center">
@@ -36,8 +38,11 @@ export default function Header() {
         </div>
 
         {/* CART */}
-        <div className="flex justify-end" onClick={toggleCart}>
+        <div className="flex justify-end relative" onClick={toggleCart}>
           <ShoppingCart className="w-6 h-6 text-[#501500]" />
+          {items.length > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{items.length}</span>
+          )}
         </div>
 
         {/* PANIER */}

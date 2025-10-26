@@ -1,0 +1,127 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 Int       @id @default(autoincrement())
+  name               String
+  email              String    @unique
+  emailVerifiedAt    DateTime? @map("email_verified_at")
+  password           String
+  rememberToken      String?   @map("remember_token")
+  createdAt          DateTime  @default(now()) @map("created_at")
+  updatedAt          DateTime  @default(now()) @map("updated_at")
+  tokens             PersonalAccessToken[]
+}
+
+model PasswordReset {
+  email      String
+  token      String
+  createdAt  DateTime? @map("created_at")
+
+  @@index([email])
+  @@id([email, token])
+}
+
+model FailedJob {
+  id         Int      @id @default(autoincrement())
+  uuid       String   @unique
+  connection String
+  queue      String
+  payload    String
+  exception  String
+  failedAt   DateTime @default(now()) @map("failed_at")
+}
+
+model PersonalAccessToken {
+  id           BigInt    @id @default(autoincrement())
+  tokenableId  Int
+  tokenableType String
+  name         String
+  token        String    @unique
+  abilities    String?
+  lastUsedAt   DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @default(now())
+
+  user         User?     @relation(fields: [tokenableId], references: [id])
+}
+
+model RestaurantTable {
+  id           Int      @id @default(autoincrement())
+  number       Int
+  isAvailable  Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now())
+  orders       Order[]
+}
+
+model Category {
+  id           Int      @id @default(autoincrement())
+  name         String
+  description  String?
+  imageUrl     String?
+  isAvailable  Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now())
+  menuItems    MenuItem[]
+}
+
+model MenuItem {
+  id           Int      @id @default(autoincrement())
+  categoryId   Int
+  name         String
+  description  String?
+  price        Decimal   @db.Decimal(8, 2)
+  imageUrl     String?
+  isAvailable  Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @default(now())
+
+  category     Category  @relation(fields: [categoryId], references: [id])
+  orderItems   OrderItem[]
+}
+
+model Order {
+  id           Int      @id @default(autoincrement())
+  tableNumber  Int
+  status       OrderStatus @default(pending)
+  total        Decimal?   @db.Decimal(8, 2)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @default(now())
+
+  restaurantTable RestaurantTable @relation(fields: [tableNumber], references: [id])
+  orderItems      OrderItem[]
+}
+
+model OrderItem {
+  id           Int      @id @default(autoincrement())
+  orderId      Int
+  menuItemId   Int
+  quantity     Int
+  subtotal     Decimal?  @db.Decimal(8, 2)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @default(now())
+
+  order         Order     @relation(fields: [orderId], references: [id])
+  menuItem      MenuItem  @relation(fields: [menuItemId], references: [id])
+}
+
+enum OrderStatus {
+  pending
+  processing
+  completed
+  cancelled
+}
