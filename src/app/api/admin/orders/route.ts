@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '../../../../generated/prisma'
+import { PrismaClient } from '../../../../generated/prisma/index.js'
 import { isAdminFromCookie } from '../../../../lib/adminAuth'
 
 const prisma = new PrismaClient()

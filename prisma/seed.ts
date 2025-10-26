@@ -1,4 +1,4 @@
-import { PrismaClient } from '../src/generated/prisma'
+import { PrismaClient } from '../src/generated/prisma/index.js'
 import dotenv from 'dotenv'
 import { getFakeData } from '../src/data/fakedata'
 
